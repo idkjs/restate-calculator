@@ -1,0 +1,29 @@
+{
+  "name": "restate",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "bsb -make-world -w",
+    "build": "webpack --mode=development -w",
+    "clean": "bsb -clean-world",
+    "webpack:production": "NODE_ENV=production webpack --mode=production",
+    "server": "open src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "reason-react": "=0.9.1"
+  },
+  "devDependencies": {
+    "bs-platform": "^9.0.1",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
