@@ -1,14 +1,19 @@
-
 {
-  "name" : "restate",
-  "reason" : {"react-jsx" : 3},
-  "bs-dependencies": ["reason-react"],
-  "sources": [
-    {
-      "dir": "src",
-      "subdirs": true
-    }
-  ],
-  "refmt":3,
-  "suffix": ".bs.js"
+    "name": "restate",
+    "reason": { "react-jsx": 3 },
+    "bs-dependencies": [ "reason-react" ],
+    "sources": [
+        {
+            "dir": "src",
+            "subdirs": true
+        }
+    ],
+      "package-specs": [
+        {
+            "module": "es6",
+            "in-source": true
+        }
+    ],
+    "refmt": 3,
+    "suffix": ".bs.js"
 }
