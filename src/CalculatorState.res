@@ -1,10 +1,10 @@
-open Operations;
+open Operations
 
 type doneState =
   | Start(string)
-  | Result(string);
+  | Result(string)
 
-let name = "Statechart";
+let name = "Statechart"
 
 type t =
   | Done(doneState)
@@ -12,31 +12,33 @@ type t =
   | Operand1(Operand.t)
   | OperatorEntered(operation, float)
   | NegOp2(operation, float)
-  | Operand2(Operand.t, operation, float);
+  | Operand2(Operand.t, operation, float)
 
-let showState =
-  fun
+let showState = x =>
+  switch x {
   | Done(Start(s)) => "Done Start " ++ s
   | Done(Result(s)) => "Done Result " ++ s
   | NegOp1 => "NegOp1"
   | Operand1(o) => "Operand1 " ++ Operand.showState(o)
   | OperatorEntered(_, _) => "OperationEntered"
   | NegOp2(_, _) => "NegOp1"
-  | Operand2(_, _, _) => "Operand2";
+  | Operand2(_, _, _) => "Operand2"
+  }
 
-let readout =
-  fun
+let readout = x =>
+  switch x {
   | Done(Start(s)) => s
   | Done(Result(s)) => s
   | NegOp1 => "-0."
   | Operand1(o) => Operand.readout(o)
   | OperatorEntered(_o, _f) => "0."
   | NegOp2(_op, _f) => "-0."
-  | Operand2(o, _op, _f) => Operand.readout(o);
+  | Operand2(o, _op, _f) => Operand.readout(o)
+  }
 
-let initialState = Done(Start("0."));
+let initialState = Done(Start("0."))
 
-let percent = s => Js.Float.toString(float_of_string(s) /. 100.0);
+let percent = s => Js.Float.toString(float_of_string(s) /. 100.0)
 
 let update = (state, action) =>
   switch (state, action) {
@@ -49,31 +51,20 @@ let update = (state, action) =>
   | (NegOp1, Digit(d)) => Operand1(Operand.fromDigit(d, Negative))
   | (NegOp1, Decimal) => Operand1(Operand.fromDecimal(Negative))
   | (Operand1(_), CancelEntry) => Done(Start("0."))
-  | (Operand1(o1), Percent) =>
-    Done(Start(Js.Float.toString(Operand.value(o1) /. 100.0)))
+  | (Operand1(o1), Percent) => Done(Start(Js.Float.toString(Operand.value(o1) /. 100.0)))
   | (Operand1(o1), Op(op)) => OperatorEntered(op, Operand.value(o1))
   | (Operand1(o1), action) => Operand1(Operand.update(o1, action))
   | (OperatorEntered(op, f), Op(Subtract)) => NegOp2(op, f)
   | (OperatorEntered(_op, f), Op(op)) => OperatorEntered(op, f)
-  | (OperatorEntered(op, f), Digit(d)) =>
-    Operand2(Operand.fromDigit(d, Positive), op, f)
+  | (OperatorEntered(op, f), Digit(d)) => Operand2(Operand.fromDigit(d, Positive), op, f)
   | (NegOp2(op, f), CancelEntry) => OperatorEntered(op, f)
-  | (NegOp2(op, f), Digit(d)) =>
-    Operand2(Operand.fromDigit(d, Negative), op, f)
-  | (NegOp2(op, f), Decimal) =>
-    Operand2(Operand.fromDecimal(Negative), op, f)
+  | (NegOp2(op, f), Digit(d)) => Operand2(Operand.fromDigit(d, Negative), op, f)
+  | (NegOp2(op, f), Decimal) => Operand2(Operand.fromDecimal(Negative), op, f)
   | (Operand2(n2, op, n1), Equal) =>
     Done(Result(Js.Float.toString(evaluate(n1, op, Operand.value(n2)))))
   | (Operand2(_n, op, n1), CancelEntry) => OperatorEntered(op, n1)
-  | (Operand2(n2, op1, n1), Op(op2)) =>
-    OperatorEntered(op2, evaluate(n1, op1, Operand.value(n2)))
-  | (Operand2(n2, op, n1), action) =>
-    Operand2(Operand.update(n2, action), op, n1)
+  | (Operand2(n2, op1, n1), Op(op2)) => OperatorEntered(op2, evaluate(n1, op1, Operand.value(n2)))
+  | (Operand2(n2, op, n1), action) => Operand2(Operand.update(n2, action), op, n1)
   | (state, action) =>
-    failwith(
-      "Cannot perform action "
-      ++ showAction(action)
-      ++ " in state "
-      ++ showState(state),
-    )
-  };
+    failwith("Cannot perform action " ++ (showAction(action) ++ (" in state " ++ showState(state))))
+  }

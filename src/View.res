@@ -1,7 +1,7 @@
-open Operations;
+open Operations
 
-let show =
-  fun
+let show = x =>
+  switch x {
   | Digit(n) => string_of_int(n)
   | Decimal => "."
   | Percent => "%"
@@ -11,38 +11,33 @@ let show =
   | Op(Divide) => "/"
   | Equal => "="
   | Cancel => "C"
-  | CancelEntry => "CE";
+  | CancelEntry => "CE"
+  }
 
 module Make = (Updater: Updater.Updater) => {
-  let s = Updater.name ++ "Calculator";
+  let s = Updater.name ++ "Calculator"
 
-  [@react.component]
+  @react.component
   let make = () => {
-
-    let (state: Updater.t, dispatch) =
-      React.useReducer(
-        (state, action: Operations.action) => Updater.update(state, action),
-        Updater.initialState,
-      );
+    let (state: Updater.t, dispatch) = React.useReducer(
+      (state, action: Operations.action) => Updater.update(state, action),
+      Updater.initialState,
+    )
     let perform = (action: Operations.action) => {
-      Js.log2("perform_action:", action);
-      dispatch(action);
-    };
+      Js.log2("perform_action:", action)
+      dispatch(action)
+    }
 
     let button = action => {
-      Js.log2("button_action:", action);
-      <button onClick={_ => perform(action) |> ignore}>
-        {React.string(show(action))}
-      </button>;
-    };
+      Js.log2("button_action:", action)
+      <button onClick={_ => perform(action) |> ignore}> {React.string(show(action))} </button>
+    }
 
     <table>
       <tbody>
         <tr>
           <td colSpan=6>
-            <div className="readout">
-              {React.string(Updater.readout(state))}
-            </div>
+            <div className="readout"> {React.string(Updater.readout(state))} </div>
           </td>
         </tr>
         <tr>
@@ -77,6 +72,6 @@ module Make = (Updater: Updater.Updater) => {
           <td> {button(Percent)} </td>
         </tr>
       </tbody>
-    </table>;
-  };
-};
+    </table>
+  }
+}

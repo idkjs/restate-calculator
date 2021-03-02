@@ -2,7 +2,7 @@ type operation =
   | Add
   | Subtract
   | Multiply
-  | Divide;
+  | Divide
 
 type action =
   | Digit(int)
@@ -11,10 +11,10 @@ type action =
   | Equal
   | Percent
   | Cancel
-  | CancelEntry;
+  | CancelEntry
 
-let showAction =
-  fun
+let showAction = x =>
+  switch x {
   | Digit(d) => "Digit " ++ string_of_int(d)
   | Decimal => "Decimal"
   | Op(Add) => "Op Add"
@@ -24,7 +24,8 @@ let showAction =
   | Equal => "Equal"
   | Percent => "Percent"
   | Cancel => "Cancel"
-  | CancelEntry => "CancelEntry";
+  | CancelEntry => "CancelEntry"
+  }
 
 let evaluate = (n1, op, n2) =>
   switch op {
@@ -32,8 +33,8 @@ let evaluate = (n1, op, n2) =>
   | Subtract => n1 -. n2
   | Multiply => n1 *. n2
   | Divide => n1 /. n2
-  };
+  }
 
 type sign =
   | Positive
-  | Negative;
+  | Negative
