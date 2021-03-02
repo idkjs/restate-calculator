@@ -1,0 +1,4 @@
+# Tell github that .re and .rei files are Reason, sometimes recognized as C/C++
+
+*.res linguist-language=ReScript
+*.resi linguist-language=ReScript
