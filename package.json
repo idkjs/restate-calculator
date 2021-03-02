@@ -9,10 +9,10 @@
         "start": "cross-env BS_WATCH_CLEAR=true bsb -make-world -w",
         "webpack": "webpack -w",
         "webpack:production": "NODE_ENV=production webpack",
-        "vercel-build": "npm run build && npm run webpack:production",
+        "vercel-build": "yarn run build && yarn run webpack:production",
         "clean": "bsb -clean-world",
         "server": "webpack serve",
-        "serve": "open src/index.html"
+        "serve": "open dist/index.html"
     },
     "keywords": [],
     "author": "",
@@ -23,9 +23,10 @@
         "reason-react": "=0.9.1"
     },
     "devDependencies": {
-        "cross-env": "7.0.3",
         "bs-platform": "^9.0.1",
+        "cross-env": "7.0.3",
         "html-webpack-plugin": "^5.2.0",
+        "rimraf": "^3.0.2",
         "webpack": "^5.24.2",
         "webpack-cli": "^4.5.0",
         "webpack-dev-server": "^3.11.2"
