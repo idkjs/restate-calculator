@@ -9,7 +9,7 @@
         "start": "cross-env BS_WATCH_CLEAR=true bsb -make-world -w",
         "webpack": "webpack -w",
         "webpack:production": "NODE_ENV=production webpack",
-        "vercel-build": "yarn run build && yarn run webpack:production",
+        "vercel-build": "npm run build && npm run webpack:production",
         "clean": "bsb -clean-world",
         "server": "webpack serve",
         "serve": "open dist/index.html"
@@ -20,7 +20,7 @@
     "dependencies": {
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
-        "reason-react": "=0.9.1"
+        "reason-react": "^0.9.1"
     },
     "devDependencies": {
         "bs-platform": "^9.0.1",

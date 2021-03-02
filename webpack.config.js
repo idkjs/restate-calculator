@@ -6,6 +6,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   mode: isProd ? "production" : "development",
+    entry: "./src/Index.bs.js",
   output: {
     path: outputDir,
     filename: "index.[fullhash].js",

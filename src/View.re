@@ -14,23 +14,11 @@ let show =
   | CancelEntry => "CE";
 
 module Make = (Updater: Updater.Updater) => {
-  // /* let s = Updater.name;*/
-  // let component = React.statefulComponent(Updater.name ++ "Calculator");
-  let s = Updater.name;
+  let s = Updater.name ++ "Calculator";
+
   [@react.component]
   let make = () => {
-    // ...component,
-    // let perform action _payload state _self => ReasonReact.Update (Updater.update state action);
-    // let button action =>
-    //   <button onClick=(self.update (perform action))>
-    //     (ReasonReact.stringToElement (show action))
-    //   </button>;
-    // let perform = (action, _payload, state, _self) =>
-    //   ReasonReact.Update(Updater.update(state, action));
 
-    // let button = (action) =>
-    //   <button onClick=(self.update(perform(action)))>
-    //     (ReasonReact.stringToElement(show(action)))
     let (state: Updater.t, dispatch) =
       React.useReducer(
         (state, action: Operations.action) => Updater.update(state, action),
