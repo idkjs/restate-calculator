@@ -17,10 +17,6 @@ npm start
 npm run server
 ```
 
-# Reason Syntax
-
-https://github.com/idkjs/restate-calculator/tree/reason
-
 # Deploying
 
 This doesnt work...
