@@ -7,7 +7,20 @@ https://asolove.medium.com/pure-ui-control-ac8d1be97a8d
 https://rauchg.com/2015/pure-ui
 
 ![ScreenShot](./ScreenShot.png)
+
+
+# Run Project
+```sh
+npm install
+npm start
+# in another tab
+npm run server
+```
+
 # Deploying
+
+This doesnt work...
+
 
 [Skip Build Step](https://vercel.com/docs/build-step)
 
